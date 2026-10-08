@@ -3,10 +3,10 @@
 ## Get an API key
 
 1. Create an account at [dashboard.voybit.com](https://dashboard.voybit.com).
-2. Open **Gateways** and create a payment gateway. Keep it enabled. Copy the asset ID you will charge, and store the webhook secret (`whsec_…`) shown once at creation as `VOYBIT_WEBHOOK_SECRET`.
+2. Open **Gateways**, create a payment gateway, enable the assets customers may choose, and store its webhook secret as `VOYBIT_WEBHOOK_SECRET`.
 3. Open **API keys**, choose **Create secret key**, and bind it to that gateway. Copy the full `vb_live_…` value once and store it as `VOYBIT_API_KEY` on your server.
 
-Create a payment and verify its webhook with the [Python library](https://github.com/VOYBIT/voybit-payment-gateway-python). The API key and webhook secret stay in Django settings.
+Create a buyer-choice checkout session and verify its webhook with the [Python library](https://github.com/VOYBIT/voybit-payment-gateway-python). The API key and webhook secret stay in Django settings.
 
 ```bash
 pip install "voybit-payment-gateway-django @ git+https://github.com/VOYBIT/voybit-payment-gateway-django.git"
@@ -19,7 +19,7 @@ VOYBIT_API_KEY = os.environ["VOYBIT_API_KEY"]
 VOYBIT_WEBHOOK_SECRET = os.environ["VOYBIT_WEBHOOK_SECRET"]
 ```
 
-Add `voybit_payment_gateway_django` to `INSTALLED_APPS`. Create the payment with `gateway_client()` and send the payer to `checkout_url`.
+Add `voybit_payment_gateway_django` to `INSTALLED_APPS`. Create a checkout session with `gateway_client()` and send the payer to `checkout_url`.
 
 ```python
 from django.urls import path
